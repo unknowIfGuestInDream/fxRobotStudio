@@ -55,7 +55,7 @@
         <junit.version>5.11.4</junit.version>
         <testfx.version>4.0.18</testfx.version>
         <monocle.version>21.0.2</monocle.version>
-        <mockito.version>5.15.2</mockito.version>
+        <mockito.version>5.21.0</mockito.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
         <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
