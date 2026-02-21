@@ -10,13 +10,15 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Provides image recognition functionality using JavaCV.
- * Compares a template image against a screen capture to find matches.
+ * Provides image recognition functionality for template matching.
+ * Uses pixel-based comparison with java.awt.image; JavaCV is available
+ * on the classpath for advanced OpenCV-based matching in the future.
  */
 public class ImageMatcher {
 
     private static final Logger log = LoggerFactory.getLogger(ImageMatcher.class);
     private static final double DEFAULT_THRESHOLD = 0.8;
+    private static final int COLOR_DIFF_THRESHOLD = 30;
 
     /**
      * Attempts to find the template image within the screen image.
@@ -129,7 +131,7 @@ public class ImageMatcher {
                 int tb = templateRgb & 0xFF;
 
                 int diff = Math.abs(sr - tr) + Math.abs(sg - tg) + Math.abs(sb - tb);
-                if (diff < 30) {
+                if (diff < COLOR_DIFF_THRESHOLD) {
                     sampledMatching++;
                 }
                 sampledPixels++;
