@@ -48,7 +48,7 @@
         <preferencesfx.version>11.17.0</preferencesfx.version>
         <atlantafx.version>2.1.0</atlantafx.version>
         <ikonli.version>12.4.0</ikonli.version>
-        <jaxb-api.version>4.0.2</jaxb-api.version>
+        <jaxb-api.version>4.0.5</jaxb-api.version>
         <jaxb-runtime.version>4.0.6</jaxb-runtime.version>
         <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.16</logback.version>
