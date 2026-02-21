@@ -3,11 +3,12 @@ module com.tlcsdm.fxrobotstudio {
     requires javafx.fxml;
     requires javafx.graphics;
     requires javafx.base;
+    requires java.prefs;
 
     requires com.github.kwhat.jnativehook;
     requires org.controlsfx.controls;
     requires com.dlsc.preferencesfx;
-    requires io.github.mkpaz.atlantafx.base;
+    requires atlantafx.base;
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.material;

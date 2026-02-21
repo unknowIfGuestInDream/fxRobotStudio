@@ -43,7 +43,7 @@ public final class WorkflowXmlHandler {
             JAXBContext context = JAXBContext.newInstance(Workflow.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (Workflow) unmarshaller.unmarshal(file);
-        } catch (JAXBException e) {
+        } catch (JAXBException | IllegalArgumentException e) {
             log.error("Failed to import workflow", e);
             return null;
         }
