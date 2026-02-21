@@ -44,7 +44,7 @@
         <jna.version>5.18.1</jna.version>
         <javacv.version>1.5.11</javacv.version>
         <jnativehook.version>2.2.2</jnativehook.version>
-        <controlsfx.version>11.2.1</controlsfx.version>
+        <controlsfx.version>11.2.3</controlsfx.version>
         <preferencesfx.version>11.17.0</preferencesfx.version>
         <atlantafx.version>2.1.0</atlantafx.version>
         <ikonli.version>12.4.0</ikonli.version>
