@@ -12,7 +12,7 @@ jobs:
     name: Build on ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -104,6 +104,39 @@ jobs:
           zip -r "../dist/fxrobotstudio-linux-${APP_VERSION}.zip" .
           cd ..
           echo "Created dist/fxrobotstudio-linux-${APP_VERSION}.zip"
+          rm -rf staging
+
+      - name: Resolve version & stage files (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          version=$(mvn -q -DforceStdout 'help:evaluate' -Dexpression=project.version 2>/dev/null)
+          version=$(echo "$version" | tr -d '\r')
+          if [ -z "$version" ]; then echo "Failed to extract version from Maven" >&2; exit 1; fi
+          echo "APP_VERSION=$version" >> $GITHUB_ENV
+
+          mkdir -p dist staging
+          cp app/target/fxrobotstudio.jar staging/
+          cp -r app/target/lib staging/
+          cp README.md LICENSE staging/
+          cp scripts/mac/* staging/
+
+      - name: Download JRE (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          cd staging
+          bash ../scripts/jre_mac.sh
+          cd ..
+
+      - name: Package artifact (macOS)
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          cd staging
+          zip -r "../dist/fxrobotstudio-macos-${APP_VERSION}.zip" .
+          cd ..
+          echo "Created dist/fxrobotstudio-macos-${APP_VERSION}.zip"
           rm -rf staging
 
       - name: Upload Release Assets

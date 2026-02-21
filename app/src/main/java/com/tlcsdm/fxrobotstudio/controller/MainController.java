@@ -3,7 +3,8 @@ package com.tlcsdm.fxrobotstudio.controller;
 import com.tlcsdm.fxrobotstudio.FxRobotStudio;
 import com.tlcsdm.fxrobotstudio.model.Workflow;
 import com.tlcsdm.fxrobotstudio.model.WorkflowStep;
-import com.tlcsdm.fxrobotstudio.preferences.AppPreferences;
+import com.tlcsdm.fxrobotstudio.service.WorkflowExecutor;
+import com.tlcsdm.fxrobotstudio.service.WorkflowRecorder;
 import com.tlcsdm.fxrobotstudio.util.WorkflowXmlHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -52,10 +53,21 @@ public class MainController {
     private Button exportButton;
 
     @FXML
+    private Button recordButton;
+
+    @FXML
+    private Button playButton;
+
+    @FXML
+    private Button stopButton;
+
+    @FXML
     private Label statusLabel;
 
     private final ObservableList<WorkflowStep> steps = FXCollections.observableArrayList();
     private Workflow currentWorkflow;
+    private final WorkflowRecorder recorder = new WorkflowRecorder();
+    private final WorkflowExecutor executor = new WorkflowExecutor();
 
     @FXML
     public void initialize() {
@@ -67,6 +79,18 @@ public class MainController {
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("actionType"));
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         stepsTable.setItems(steps);
+
+        recorder.setOnStepRecorded(step -> steps.add(step));
+
+        executor.setOnStatusUpdate(msg -> {
+            ResourceBundle bundle = FxRobotStudio.getBundle();
+            statusLabel.setText(bundle != null ? bundle.getString("status.playing") + " " + msg : msg);
+        });
+        executor.setOnComplete(() -> {
+            ResourceBundle bundle = FxRobotStudio.getBundle();
+            statusLabel.setText(bundle != null ? bundle.getString("status.ready") : "Ready");
+            setButtonsIdle();
+        });
 
         ResourceBundle bundle = FxRobotStudio.getBundle();
         if (bundle != null) {
@@ -115,13 +139,110 @@ public class MainController {
     }
 
     @FXML
+    public void onRecord() {
+        ResourceBundle bundle = FxRobotStudio.getBundle();
+        if (recorder.isRecording()) {
+            recorder.stopRecording();
+            statusLabel.setText(bundle != null ? bundle.getString("status.ready") : "Ready");
+            setButtonsIdle();
+        } else {
+            steps.clear();
+            recorder.startRecording();
+            statusLabel.setText(bundle != null ? bundle.getString("status.recording") : "Recording...");
+            setButtonsRecording();
+        }
+    }
+
+    @FXML
+    public void onPlay() {
+        if (steps.isEmpty()) {
+            return;
+        }
+        ResourceBundle bundle = FxRobotStudio.getBundle();
+        currentWorkflow.setName(workflowNameField.getText());
+        currentWorkflow.setLoopCount(loopCountSpinner.getValue());
+        currentWorkflow.setSteps(steps.stream().toList());
+        statusLabel.setText(bundle != null ? bundle.getString("status.playing") : "Playing...");
+        setButtonsPlaying();
+        executor.execute(currentWorkflow);
+    }
+
+    @FXML
+    public void onStop() {
+        ResourceBundle bundle = FxRobotStudio.getBundle();
+        if (recorder.isRecording()) {
+            recorder.stopRecording();
+        }
+        if (executor.isRunning()) {
+            executor.stop();
+        }
+        statusLabel.setText(bundle != null ? bundle.getString("status.ready") : "Ready");
+        setButtonsIdle();
+    }
+
+    @FXML
     public void onSettings() {
         log.debug("Open settings dialog");
     }
 
     @FXML
     public void onExit() {
+        onStop();
         stepsTable.getScene().getWindow().hide();
+    }
+
+    private void setButtonsRecording() {
+        if (recordButton != null) {
+            recordButton.setDisable(false);
+        }
+        if (playButton != null) {
+            playButton.setDisable(true);
+        }
+        if (stopButton != null) {
+            stopButton.setDisable(false);
+        }
+        if (importButton != null) {
+            importButton.setDisable(true);
+        }
+        if (exportButton != null) {
+            exportButton.setDisable(true);
+        }
+    }
+
+    private void setButtonsPlaying() {
+        if (recordButton != null) {
+            recordButton.setDisable(true);
+        }
+        if (playButton != null) {
+            playButton.setDisable(true);
+        }
+        if (stopButton != null) {
+            stopButton.setDisable(false);
+        }
+        if (importButton != null) {
+            importButton.setDisable(true);
+        }
+        if (exportButton != null) {
+            exportButton.setDisable(true);
+        }
+    }
+
+    private void setButtonsIdle() {
+        if (recordButton != null) {
+            recordButton.setDisable(false);
+        }
+        if (playButton != null) {
+            playButton.setDisable(false);
+        }
+        if (stopButton != null) {
+            stopButton.setDisable(true);
+        }
+        if (importButton != null) {
+            importButton.setDisable(false);
+        }
+        if (exportButton != null) {
+            exportButton.setDisable(false);
+        }
     }
 
 }

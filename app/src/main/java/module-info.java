@@ -4,6 +4,7 @@ module com.tlcsdm.fxrobotstudio {
     requires javafx.graphics;
     requires javafx.base;
     requires java.prefs;
+    requires java.desktop;
 
     requires com.github.kwhat.jnativehook;
     requires org.controlsfx.controls;
@@ -34,5 +35,6 @@ module com.tlcsdm.fxrobotstudio {
     exports com.tlcsdm.fxrobotstudio.model;
     exports com.tlcsdm.fxrobotstudio.controller;
     exports com.tlcsdm.fxrobotstudio.preferences;
+    exports com.tlcsdm.fxrobotstudio.service;
     exports com.tlcsdm.fxrobotstudio.util;
 }

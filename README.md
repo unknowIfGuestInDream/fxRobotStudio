@@ -13,11 +13,6 @@ A JavaFX-based automated operation tool for editing, recording, importing and ex
 - **Internationalization** - English, Chinese (中文), and Japanese (日本語)
 - **Theme Support** - Multiple themes via AtlantaFX
 
-## Requirements
-
-- Java 21+
-- JavaFX 21.0.10
-
 ## Building
 
 ```bash
@@ -30,8 +25,6 @@ mvn clean package
 cd app
 mvn javafx:run
 ```
-
-Or use the start scripts in the `scripts` directory after packaging.
 
 ## Technology Stack
 

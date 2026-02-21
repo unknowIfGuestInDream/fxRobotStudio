@@ -40,6 +40,9 @@
             <ToolBar>
                 <Button fx:id="importButton" text="%button.import" onAction="#onImport"/>
                 <Button fx:id="exportButton" text="%button.export" onAction="#onExport"/>
+                <Button fx:id="recordButton" text="%button.record" onAction="#onRecord"/>
+                <Button fx:id="playButton" text="%button.play" onAction="#onPlay"/>
+                <Button fx:id="stopButton" text="%button.stop" onAction="#onStop" disable="true"/>
             </ToolBar>
         </VBox>
     </top>
