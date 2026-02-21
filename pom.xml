@@ -51,7 +51,7 @@
         <jaxb-api.version>4.0.5</jaxb-api.version>
         <jaxb-runtime.version>4.0.6</jaxb-runtime.version>
         <slf4j.version>2.0.17</slf4j.version>
-        <logback.version>1.5.16</logback.version>
+        <logback.version>1.5.32</logback.version>
         <junit.version>5.11.4</junit.version>
         <testfx.version>4.0.18</testfx.version>
         <monocle.version>21.0.2</monocle.version>
