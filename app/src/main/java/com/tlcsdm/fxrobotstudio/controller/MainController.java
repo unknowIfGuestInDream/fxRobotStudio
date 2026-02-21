@@ -119,4 +119,9 @@ public class MainController {
         log.debug("Open settings dialog");
     }
 
+    @FXML
+    public void onExit() {
+        stepsTable.getScene().getWindow().hide();
+    }
+
 }

@@ -28,7 +28,7 @@
                     <MenuItem text="%menu.file.import" onAction="#onImport"/>
                     <MenuItem text="%menu.file.export" onAction="#onExport"/>
                     <SeparatorMenuItem/>
-                    <MenuItem text="%menu.file.exit" onAction="#onSettings"/>
+                    <MenuItem text="%menu.file.exit" onAction="#onExit"/>
                 </Menu>
                 <Menu text="%menu.edit">
                     <MenuItem text="%menu.edit.preferences" onAction="#onSettings"/>
