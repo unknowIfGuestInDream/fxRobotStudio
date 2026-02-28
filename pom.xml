@@ -42,7 +42,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <javafx.version>21.0.10</javafx.version>
         <jna.version>5.18.1</jna.version>
-        <javacv.version>1.5.11</javacv.version>
+        <javacv.version>1.5.13</javacv.version>
         <jnativehook.version>2.2.2</jnativehook.version>
         <controlsfx.version>11.2.3</controlsfx.version>
         <preferencesfx.version>11.17.0</preferencesfx.version>
