@@ -40,7 +40,7 @@
         <java.version>21</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <javafx.version>21.0.10</javafx.version>
+        <javafx.version>24.0.2</javafx.version>
         <jna.version>5.18.1</jna.version>
         <javacv.version>1.5.11</javacv.version>
         <jnativehook.version>2.2.2</jnativehook.version>
